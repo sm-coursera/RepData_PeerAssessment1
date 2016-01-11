@@ -1,36 +1,41 @@
----
-title: "Reproducible Research: Peer Assessment 1"
-output: 
-  html_document:
-    keep_md: true
----
+# Reproducible Research: Peer Assessment 1
 
 
 ## Loading and preprocessing the data
 
-```{r LoadingData, message = FALSE}
 
+```r
 library(data.table)
+```
+
+```
+## Warning: package 'data.table' was built under R version 3.2.3
+```
+
+```r
 activityData <- read.csv("activity.csv", stringsAsFactors = FALSE)
 activityData$date <- as.POSIXct(activityData$date)
 activityData <- data.table(activityData)
-
 ```
 
 
 ## What is mean total number of steps taken per day?
 
-```{r TotalStepsData}
+
+```r
 stepsTotalsByDay <- activityData[!is.na(steps), sum(steps), by = date]
 ```
 
-```{r StepsHistogram}
+
+```r
 hist(stepsTotalsByDay$V1, xlab = "Steps per day", breaks = 20, 
      main = "Histogram of Steps Taken per Day")
 ```
 
-The mean number of steps per day is: `r format(mean(stepsTotalsByDay$V1), scientific = FALSE)` 
-and the median number of steps per day is: `r median(stepsTotalsByDay$V1)`.
+![](PA1_template_files/figure-html/StepsHistogram-1.png)\
+
+The mean number of steps per day is: 10766.19 
+and the median number of steps per day is: 10765.
 
 ## What is the average daily activity pattern?
 
