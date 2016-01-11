@@ -34,6 +34,18 @@ and the median number of steps per day is: `r median(stepsTotalsByDay$V1)`.
 
 ## What is the average daily activity pattern?
 
+```{r TotalStepsPerDailyTimeIntervalData}
+stepsTotalsByTimeInterval <- activityData[!is.na(steps), mean(steps), by = interval]
+plot(stepsTotalsByTimeInterval$interval, stepsTotalsByTimeInterval$V1, 
+     main = "Average Steps per Time Interval", xlab = "Interval", ylab = "Number of Steps",
+     type = "l")
+
+maximumNumberOfSteps <- max(stepsTotalsByTimeInterval$V1)
+intervalOfMaximum <- stepsTotalsByTimeInterval[stepsTotalsByTimeInterval$V1 == maximumNumberOfSteps, ]$interval
+```
+
+The maximum average number of steps per interval (`r maximumNumberOfSteps`) occurs 
+in the interval: `r intervalOfMaximum`.
 
 
 ## Imputing missing values
